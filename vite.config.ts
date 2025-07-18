@@ -10,7 +10,7 @@ export default defineConfig({
     strictPort: true,
   },
   build: {
-    outDir: 'dist',
+    outDir: 'part-number-manager/dist',
     assetsDir: 'assets',
     rollupOptions: {
       output: {
