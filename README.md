@@ -1,11 +1,17 @@
-# React + TypeScript + Vite
+# 모바일 품번 스캐너
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tesseract.js를 활용한 모바일 최적화 품번 인식 및 관리 PWA 앱입니다.
 
-Currently, two official plugins are available:
+## 주요 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **카메라 촬영**: 모바일 카메라를 사용하여 박스 촬영
+2. **자동 OCR**: Tesseract.js를 사용한 숫자 자동 인식
+3. **범위 선택**: 터치로 특정 범위의 숫자만 선택 가능
+4. **품번 관리**: 인식된 숫자를 품번으로 저장
+5. **수량 단위**: 카톤, 중포 등 다양한 단위 지원 및 편집 가능
+6. **유통기한**: 선택적으로 8자리 유통기한 입력
+7. **파일 저장**: 메모장 형식으로 품번 목록 저장
+8. **공유 기능**: 결과를 다른 앱으로 공유
 
 ## Expanding the ESLint configuration
 
