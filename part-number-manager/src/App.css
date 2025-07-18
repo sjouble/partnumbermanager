@@ -41,25 +41,25 @@ body {
 }
 
 .App-main {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 /* 카메라 섹션 */
 .camera-section {
   background: white;
-  border-radius: 20px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .camera-section h2 {
   color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .camera-container {
@@ -71,15 +71,17 @@ body {
 
 .capture-btn {
   width: 100%;
-  padding: 1rem;
+  padding: 1.5rem;
   background: linear-gradient(45deg, #ff6b6b, #ee5a24);
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 1.2rem;
+  border-radius: 15px;
+  font-size: 1.3rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .capture-btn:hover {
@@ -87,20 +89,47 @@ body {
   box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
 }
 
+.capture-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.capture-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.camera-error {
+  background: #ffebee;
+  border: 2px solid #f44336;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  color: #c62828;
+  margin: 1rem 0;
+}
+
+.camera-error p {
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
 /* 결과 섹션 */
 .result-section {
   background: white;
-  border-radius: 20px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .result-section h2 {
   color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .image-container {
@@ -508,32 +537,63 @@ body {
   box-shadow: 0 5px 15px rgba(111, 66, 193, 0.4);
 }
 
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-  .App-main {
-    padding: 1rem;
-  }
-  
-  .camera-section,
-  .result-section,
-  .input-section,
-  .list-section {
-    padding: 1.5rem;
-  }
-  
-  .final-actions {
-    flex-direction: column;
-  }
-  
-  .part-number-item {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
-  }
-  
-  .part-number-item > * {
-    width: 100%;
-  }
+/* 모바일 전용 스타일 */
+.App-main {
+  padding: 0.5rem;
+}
+
+.camera-section,
+.result-section,
+.input-section,
+.list-section {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.final-actions {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.part-number-item {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.75rem;
+}
+
+.part-number-item > * {
+  margin: 0.25rem 0;
+}
+
+/* 터치 최적화 */
+button {
+  min-height: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input, select {
+  min-height: 44px;
+  font-size: 16px; /* iOS에서 줌 방지 */
+}
+
+/* 스크롤 최적화 */
+.App-main {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* 모바일 헤더 최적화 */
+.App-header {
+  padding: 0.75rem;
+}
+
+.App-header h1 {
+  font-size: 1.5rem;
+}
+
+.app-subtitle {
+  font-size: 0.8rem;
 }
 
 /* 애니메이션 */

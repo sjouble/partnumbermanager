@@ -34,24 +34,35 @@ function App() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
   const [progress, setProgress] = useState(0);
+  const [cameraError, setCameraError] = useState('');
 
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // 카메라 캡처
   const capture = useCallback(async () => {
+    console.log('촬영 버튼 클릭됨');
+    console.log('webcamRef.current:', webcamRef.current);
+    
     if (webcamRef.current) {
-      const imageSrc = webcamRef.current.getScreenshot();
-      setCapturedImage(imageSrc);
-      setIsCameraActive(false);
-      setIsProcessing(true);
-      setError('');
-      setProgress(0);
-      
       try {
+        const imageSrc = webcamRef.current.getScreenshot();
+        console.log('캡처된 이미지:', imageSrc ? '성공' : '실패');
+        
+        if (!imageSrc) {
+          setError('이미지 캡처에 실패했습니다. 카메라 권한을 확인해주세요.');
+          return;
+        }
+        
+        setCapturedImage(imageSrc);
+        setIsCameraActive(false);
+        setIsProcessing(true);
+        setError('');
+        setProgress(0);
+        
         // 진행률을 추적하는 OCR 수행
         const recognizedText = await performOCRWithProgress(
-          imageSrc!, 
+          imageSrc, 
           (progress) => setProgress(progress)
         );
         
@@ -72,6 +83,9 @@ function App() {
         setIsProcessing(false);
         setProgress(0);
       }
+    } else {
+      console.error('webcamRef가 null입니다');
+      setError('카메라가 초기화되지 않았습니다. 페이지를 새로고침해주세요.');
     }
   }, []);
 
@@ -220,15 +234,36 @@ function App() {
           <div className="camera-section">
             <h2>카메라</h2>
             <div className="camera-container">
-              <Webcam
-                ref={webcamRef}
-                screenshotFormat="image/jpeg"
-                width="100%"
-                height="auto"
-              />
+              {cameraError ? (
+                <div className="camera-error">
+                  <p>카메라 접근 오류: {cameraError}</p>
+                  <button onClick={() => window.location.reload()} className="retry-btn">
+                    다시 시도
+                  </button>
+                </div>
+              ) : (
+                <Webcam
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                  width="100%"
+                  height="auto"
+                  onUserMediaError={(error) => {
+                    console.error('카메라 에러:', error);
+                    setCameraError('카메라에 접근할 수 없습니다. 권한을 확인해주세요.');
+                  }}
+                  onUserMedia={() => {
+                    console.log('카메라 접근 성공');
+                    setCameraError('');
+                  }}
+                />
+              )}
             </div>
-            <button onClick={capture} className="capture-btn">
-              촬영
+            <button 
+              onClick={capture} 
+              className="capture-btn"
+              disabled={!!cameraError || isProcessing}
+            >
+              {isProcessing ? '처리 중...' : '촬영'}
             </button>
           </div>
         )}
