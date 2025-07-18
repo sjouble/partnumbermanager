@@ -1,0 +1,23 @@
+{
+  "name": "part-number-manager",
+  "version": "1.0.0",
+  "description": "PaddleOCR을 활용한 품번 정리 앱",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd part-number-manager && npm run dev",
+    "install": "cd part-number-manager && npm install",
+    "build": "cd part-number-manager && npm run build",
+    "start": "npm run dev"
+  },
+  "keywords": [
+    "paddleocr",
+    "ocr",
+    "part-number",
+    "react",
+    "fastapi",
+    "typescript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {}
+} 
