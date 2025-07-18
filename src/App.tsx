@@ -175,7 +175,19 @@ function App() {
     try {
       const worker = await createWorker('kor+eng');
       
-      setProgress(30);
+      setProgress(20);
+      
+      // Tesseract 설정 최적화
+      await worker.setParameters({
+        tessedit_char_whitelist: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허기니디리미비시이지치키티피히구누두루무부수우주추쿠투푸후그느드르므브스으즈츠크트프흐긔늬듸리미비시이지치키티피히그느드르므브스으즈츠크트프흐기니디리미비시이지치키티피히구누두루무부수우주추쿠투푸후그느드르므브스으즈츠크트프흐',
+        tessedit_pageseg_mode: '6', // 균등한 텍스트 블록
+        tessedit_ocr_engine_mode: '3', // 기본 OCR 엔진
+        preserve_interword_spaces: '1',
+        textord_heavy_nr: '1',
+        textord_min_linesize: '2.5'
+      });
+      
+      setProgress(40);
       
       let imageToProcess = capturedImage;
       
@@ -196,15 +208,24 @@ function App() {
               0, 0, selectionArea.width, selectionArea.height
             );
             
-            imageToProcess = croppedCanvas.toDataURL('image/jpeg');
+            imageToProcess = croppedCanvas.toDataURL('image/jpeg', 0.9);
           }
         }
       }
       
+      setProgress(60);
+      
       const { data: { text } } = await worker.recognize(imageToProcess);
       
       setProgress(100);
-      setRecognizedText(text);
+      
+      // 텍스트 후처리로 정확도 향상
+      const cleanedText = text
+        .replace(/[^\w\s가-힣]/g, '') // 특수문자 제거
+        .replace(/\s+/g, ' ') // 연속된 공백을 하나로
+        .trim();
+      
+      setRecognizedText(cleanedText);
       
       await worker.terminate();
     } catch (error) {
