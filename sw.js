@@ -1,5 +1,5 @@
 const CACHE_NAME = 'part-number-scanner-v1';
-const CACHE_BASE = '/PartNumberManager/';
+const CACHE_BASE = '/partnumbermanager/';
 const urlsToCache = [
   CACHE_BASE,
   CACHE_BASE + 'index.html',
