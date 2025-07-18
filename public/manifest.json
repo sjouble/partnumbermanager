@@ -2,7 +2,7 @@
   "name": "품번 스캐너",
   "short_name": "품번스캐너",
   "description": "PaddleOCR을 활용한 품번 인식 및 관리 앱",
-  "start_url": "/PartNumberManager/",
+  "start_url": "/partnumbermanager/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#667eea",

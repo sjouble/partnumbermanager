@@ -4,7 +4,7 @@ Tesseract.js를 활용한 모바일 최적화 품번 인식 및 관리 PWA 앱�
 
 ## 🌐 배포된 사이트
 
-**GitHub Pages**: https://[your-username].github.io/PartNumberManager/
+**GitHub Pages**: https://[your-username].github.io/partnumbermanager/
 
 ## 🚀 배포 방법
 

@@ -8,7 +8,7 @@ console.log('main.tsx 로드됨');
 // 서비스 워커 등록 (PWA 지원)
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/PartNumberManager/sw.js')
+    navigator.serviceWorker.register('/partnumbermanager/sw.js')
       .then((registration) => {
         console.log('서비스 워커 등록 성공:', registration.scope);
       })
