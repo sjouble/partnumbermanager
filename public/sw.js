@@ -2,9 +2,7 @@ const CACHE_NAME = 'part-number-scanner-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/manifest.json',
-  '/assets/index-CAjxYhy3.js',
-  '/assets/index-DdzTo5Uo.css'
+  '/manifest.json'
 ];
 
 // 서비스 워커 설치
