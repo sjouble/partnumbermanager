@@ -1,23 +1,21 @@
 {
-  "name": "part-number-manager",
+  "name": "inventory-scanner",
   "version": "1.0.0",
-  "description": "PaddleOCR을 활용한 품번 정리 앱",
-  "main": "index.js",
+  "description": "모바일 품번 스캐너 앱",
   "scripts": {
-    "dev": "cd part-number-manager && npm run dev -- --host",
+    "dev": "cd part-number-manager && npm run dev",
     "install": "cd part-number-manager && npm install",
     "build": "cd part-number-manager && npm run build",
-    "start": "npm run dev"
+    "deploy": "cd part-number-manager && npm run deploy"
   },
   "keywords": [
-    "paddleocr",
     "ocr",
     "part-number",
     "react",
-    "fastapi",
-    "typescript"
+    "typescript",
+    "mobile",
+    "pwa"
   ],
-  "author": "Your Name",
-  "license": "MIT",
-  "devDependencies": {}
+  "author": "sjouble",
+  "license": "MIT"
 } 

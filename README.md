@@ -1,6 +1,6 @@
-# 품번 정리 앱
+# 모바일 품번 스캐너
 
-PaddleOCR을 활용한 품번 인식 및 관리 웹 애플리케이션입니다.
+Tesseract.js를 활용한 모바일 최적화 품번 인식 및 관리 PWA 앱입니다.
 
 ## 주요 기능
 
@@ -15,16 +15,12 @@ PaddleOCR을 활용한 품번 인식 및 관리 웹 애플리케이션입니다.
 
 ## 기술 스택
 
-### 프론트엔드
-- React 18
-- TypeScript
-- Vite
-- React Webcam
-- File Saver
+### 기술 스택
+- React 18 + TypeScript
+- Vite (빌드 도구)
 - Tesseract.js (클라이언트 사이드 OCR)
-
-### 백엔드
-- ❌ **불필요** - 클라이언트 사이드 OCR 사용
+- PWA (Progressive Web App)
+- 모바일 최적화 UI/UX
 
 ## 설치 및 실행
 
