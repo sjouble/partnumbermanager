@@ -18,5 +18,7 @@
     "pwa"
   ],
   "author": "sjouble",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
 } 

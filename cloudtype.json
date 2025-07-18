@@ -1,6 +1,6 @@
 {
   "build": {
-    "command": "npm run build",
+    "command": "npm install && npm run build",
     "output": "part-number-manager/dist",
     "environment": {
       "NODE_VERSION": "18"
