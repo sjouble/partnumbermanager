@@ -6,7 +6,7 @@
     "dev": "cd part-number-manager && npm run dev",
     "install": "cd part-number-manager && npm install",
     "build": "cd part-number-manager && npm run build",
-    "deploy": "cd part-number-manager && npm run deploy"
+    "deploy": "cd part-number-manager && npm run deploy:cloudtype"
   },
   "keywords": [
     "ocr",

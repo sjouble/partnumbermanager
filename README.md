@@ -135,18 +135,23 @@ npm run build
 
 ## 배포
 
-### 정적 웹사이트 배포 (권장)
-1. GitHub에 코드 푸시
-2. Netlify, Vercel, GitHub Pages 등에서 배포
-3. 빌드 명령어: `cd part-number-manager && npm install && npm run build`
-4. 배포 디렉토리: `part-number-manager/dist`
+### CloudType 배포 (권장)
+1. [CloudType](https://cloudtype.io) 접속
+2. GitHub 계정으로 로그인
+3. 새 프로젝트 생성 → `sjouble/InventoryScanner` 선택
+4. 프레임워크: `Vite` 선택
+5. 자동 배포 완료
 
-### Render 배포
-1. GitHub에 코드 푸시
-2. Render에서 Static Site 생성
-3. GitHub 저장소 연결
-4. 빌드 명령어: `cd part-number-manager && npm install && npm run build`
-5. 배포 디렉토리: `part-number-manager/dist`
+### 배포 설정
+- **빌드 명령어**: `npm install && npm run build`
+- **출력 디렉토리**: `part-number-manager/dist`
+- **Node.js 버전**: `18`
+- **자동 도메인**: `https://inventory-scanner.cloudtype.app`
+
+### 다른 플랫폼 배포
+- **Netlify**: `part-number-manager/dist` 배포
+- **Vercel**: Vite 프레임워크 자동 감지
+- **GitHub Pages**: `gh-pages` 브랜치 사용
 
 ## 문제 해결
 
