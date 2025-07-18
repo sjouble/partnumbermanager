@@ -4,7 +4,7 @@
   "description": "PaddleOCR을 활용한 품번 정리 앱",
   "main": "index.js",
   "scripts": {
-    "dev": "cd part-number-manager && npm run dev",
+    "dev": "cd part-number-manager && npm run dev -- --host",
     "install": "cd part-number-manager && npm install",
     "build": "cd part-number-manager && npm run build",
     "start": "npm run dev"
