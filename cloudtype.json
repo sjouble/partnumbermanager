@@ -1,6 +1,6 @@
 {
   "build": {
-    "command": "npm install && npm run build",
+    "command": "powershell -ExecutionPolicy Bypass -File build.ps1",
     "output": "part-number-manager/dist",
     "environment": {
       "NODE_VERSION": "18"
