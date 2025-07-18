@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import { createWorker } from 'tesseract.js';
 import { saveAs } from 'file-saver';
@@ -10,6 +10,13 @@ interface PartNumber {
   quantity: string;
   unit: string;
   expiryDate?: string;
+}
+
+interface SelectionArea {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 function App() {
@@ -26,14 +33,20 @@ function App() {
   const [customUnits, setCustomUnits] = useState<string[]>(['카톤', '중포', '개']);
   const [cameraError, setCameraError] = useState<string>('');
   const [progress, setProgress] = useState<number>(0);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [selectionArea, setSelectionArea] = useState<SelectionArea | null>(null);
+  const [drawingStart, setDrawingStart] = useState<{ x: number; y: number } | null>(null);
 
   const webcamRef = useRef<Webcam>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const capture = useCallback(() => {
     if (webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot();
       setCapturedImage(imageSrc);
       setCameraError('');
+      setSelectionArea(null);
     }
   }, [webcamRef]);
 
@@ -44,7 +57,114 @@ function App() {
     setCurrentPartNumber('');
     setCurrentQuantity('');
     setCurrentExpiryDate('');
+    setSelectionArea(null);
+    setDrawingStart(null);
   };
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!canvasRef.current) return;
+    
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    setIsDrawing(true);
+    setDrawingStart({ x, y });
+    setSelectionArea(null);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!isDrawing || !drawingStart || !canvasRef.current) return;
+    
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const width = x - drawingStart.x;
+    const height = y - drawingStart.y;
+    
+    setSelectionArea({
+      x: width > 0 ? drawingStart.x : x,
+      y: height > 0 ? drawingStart.y : y,
+      width: Math.abs(width),
+      height: Math.abs(height)
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsDrawing(false);
+    setDrawingStart(null);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!canvasRef.current) return;
+    
+    const rect = canvasRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    
+    setIsDrawing(true);
+    setDrawingStart({ x, y });
+    setSelectionArea(null);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDrawing || !drawingStart || !canvasRef.current) return;
+    
+    e.preventDefault();
+    const rect = canvasRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    
+    const width = x - drawingStart.x;
+    const height = y - drawingStart.y;
+    
+    setSelectionArea({
+      x: width > 0 ? drawingStart.x : x,
+      y: height > 0 ? drawingStart.y : y,
+      width: Math.abs(width),
+      height: Math.abs(height)
+    });
+  };
+
+  const handleTouchEnd = () => {
+    setIsDrawing(false);
+    setDrawingStart(null);
+  };
+
+  // 캔버스에 선택 영역 그리기
+  useEffect(() => {
+    if (!canvasRef.current || !capturedImage) return;
+    
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    // 캔버스 크기를 이미지에 맞춤
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      
+      // 이미지 그리기
+      ctx.drawImage(img, 0, 0);
+      
+      // 선택 영역 그리기
+      if (selectionArea) {
+        ctx.strokeStyle = '#007bff';
+        ctx.lineWidth = 3;
+        ctx.setLineDash([5, 5]);
+        ctx.strokeRect(selectionArea.x, selectionArea.y, selectionArea.width, selectionArea.height);
+        
+        // 반투명 배경
+        ctx.fillStyle = 'rgba(0, 123, 255, 0.2)';
+        ctx.fillRect(selectionArea.x, selectionArea.y, selectionArea.width, selectionArea.height);
+      }
+    };
+    img.src = capturedImage;
+  }, [capturedImage, selectionArea]);
 
   const processImage = async () => {
     if (!capturedImage) return;
@@ -57,7 +177,31 @@ function App() {
       
       setProgress(30);
       
-      const { data: { text } } = await worker.recognize(capturedImage);
+      let imageToProcess = capturedImage;
+      
+      // 선택 영역이 있으면 해당 영역만 크롭
+      if (selectionArea && canvasRef.current) {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          const croppedCanvas = document.createElement('canvas');
+          const croppedCtx = croppedCanvas.getContext('2d');
+          if (croppedCtx) {
+            croppedCanvas.width = selectionArea.width;
+            croppedCanvas.height = selectionArea.height;
+            
+            croppedCtx.drawImage(
+              canvas,
+              selectionArea.x, selectionArea.y, selectionArea.width, selectionArea.height,
+              0, 0, selectionArea.width, selectionArea.height
+            );
+            
+            imageToProcess = croppedCanvas.toDataURL('image/jpeg');
+          }
+        }
+      }
+      
+      const { data: { text } } = await worker.recognize(imageToProcess);
       
       setProgress(100);
       setRecognizedText(text);
@@ -139,6 +283,11 @@ function App() {
     setCameraError('카메라에 접근할 수 없습니다. 카메라 권한을 확인해주세요.');
   };
 
+  const clearSelection = () => {
+    setSelectionArea(null);
+    setDrawingStart(null);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -168,10 +317,29 @@ function App() {
             </div>
           ) : (
             <div className="image-container">
-              <img src={capturedImage} alt="촬영된 이미지" />
+              <div className="canvas-container">
+                <canvas
+                  ref={canvasRef}
+                  className="selection-canvas"
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={handleMouseUp}
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                />
+                {selectionArea && (
+                  <div className="selection-info">
+                    <p>선택된 영역: {Math.round(selectionArea.width)} x {Math.round(selectionArea.height)}</p>
+                  </div>
+                )}
+              </div>
               <div className="action-buttons">
                 <button className="retake-btn" onClick={retake}>
                   🔄 다시 촬영
+                </button>
+                <button className="clear-selection-btn" onClick={clearSelection}>
+                  🗑️ 선택 영역 지우기
                 </button>
                 <button className="capture-btn" onClick={processImage} disabled={isProcessing}>
                   🔍 텍스트 인식
