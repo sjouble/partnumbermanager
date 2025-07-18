@@ -2,6 +2,32 @@
 
 Tesseract.js를 활용한 모바일 최적화 품번 인식 및 관리 PWA 앱입니다.
 
+## 🌐 배포된 사이트
+
+**GitHub Pages**: https://[your-username].github.io/PartNumberManager/
+
+## 🚀 배포 방법
+
+### GitHub Pages 배포
+
+1. **저장소 설정**
+   - GitHub 저장소의 Settings → Pages
+   - Source를 "Deploy from a branch"로 설정
+   - Branch를 "gh-pages"로 설정
+
+2. **로컬 배포**
+   ```bash
+   # 의존성 설치
+   npm install
+   
+   # 빌드 및 배포
+   npm run deploy
+   ```
+
+3. **자동 배포 설정**
+   - GitHub Actions를 사용하여 main 브랜치 푸시 시 자동 배포
+   - `.github/workflows/deploy.yml` 파일 생성 필요
+
 ## 주요 기능
 
 1. **카메라 촬영**: 모바일 카메라를 사용하여 박스 촬영
