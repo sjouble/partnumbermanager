@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && cpy part-number-manager/dist/index.html part-number-manager/dist --rename=404.html && gh-pages -d part-number-manager/dist"
+    "deploy": "cpy part-number-manager/dist/index.html part-number-manager/dist --rename=404.html && gh-pages -d part-number-manager/dist"
   },
   "dependencies": {
     "file-saver": "^2.0.5",
