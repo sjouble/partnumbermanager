@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "cd part-number-manager && npm run dev",
     "install": "cd part-number-manager && npm install",
-    "build": "cd part-number-manager && npm run build",
-    "deploy": "cd part-number-manager && npm run deploy:cloudtype"
+    "build": "cd part-number-manager && npm install && npm run build",
+    "deploy": "cd part-number-manager && npm run deploy:cloudtype",
+    "start": "cd part-number-manager && npm run preview"
   },
   "keywords": [
     "ocr",
