@@ -1,8 +1,10 @@
 const CACHE_NAME = 'part-number-scanner-v1';
+const CACHE_BASE = '/PartNumberManager/';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  CACHE_BASE,
+  CACHE_BASE + 'index.html',
+  CACHE_BASE + 'manifest.json',
+  CACHE_BASE + 'icon.svg'
 ];
 
 // 서비스 워커 설치
