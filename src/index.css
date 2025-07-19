@@ -92,11 +92,15 @@ section h2 {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .camera-container video {
   width: 100%;
   max-width: 400px;
+  height: 400px;
+  object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -111,10 +115,15 @@ section h2 {
   position: relative;
   display: flex;
   justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .selection-canvas {
   max-width: 100%;
+  max-height: 400px;
+  width: auto;
+  height: auto;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   cursor: crosshair;
@@ -635,6 +644,20 @@ button:disabled {
     padding: 1rem;
   }
   
+  .camera-container video {
+    max-width: 300px;
+    height: 300px;
+  }
+  
+  .selection-canvas {
+    max-height: 300px;
+  }
+  
+  .camera-container,
+  .canvas-container {
+    max-width: 300px;
+  }
+  
   .action-buttons {
     flex-direction: column;
   }
@@ -669,6 +692,20 @@ button:disabled {
   
   section h2 {
     font-size: 1.3rem;
+  }
+  
+  .camera-container video {
+    max-width: 250px;
+    height: 250px;
+  }
+  
+  .selection-canvas {
+    max-height: 250px;
+  }
+  
+  .camera-container,
+  .canvas-container {
+    max-width: 250px;
   }
   
   button {
