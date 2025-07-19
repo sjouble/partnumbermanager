@@ -1,4 +1,4 @@
-/* 기본 리셋 */
+/* 브라우저 호환성을 위한 기본 리셋 */
 * {
   margin: 0;
   padding: 0;
@@ -11,25 +11,46 @@
   user-select: none;
 }
 
-html, body {
+/* 뷰포트 설정 강화 */
+html {
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  background-color: #f0f0f0;
+  width: 100%;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   position: relative;
 }
 
-/* 앱 컨테이너 */
+body {
+  height: 100%;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f0f0f0;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+/* 앱 컨테이너 - 브라우저 호환성 강화 */
 .App {
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  min-height: -moz-available;
+  min-height: stretch;
   background: #667eea;
   background: -webkit-linear-gradient(to bottom, #667eea, #764ba2);
+  background: -moz-linear-gradient(to bottom, #667eea, #764ba2);
+  background: -o-linear-gradient(to bottom, #667eea, #764ba2);
   background: linear-gradient(to bottom, #667eea, #764ba2);
   position: relative;
   overflow-x: hidden;
+  width: 100%;
 }
 
 /* 헤더 */
@@ -79,7 +100,7 @@ html, body {
   margin-bottom: 15px;
 }
 
-/* 카메라 컨테이너 */
+/* 카메라 컨테이너 - 브라우저 호환성 강화 */
 .camera-container {
   border-radius: 0;
   overflow: hidden;
@@ -90,9 +111,17 @@ html, body {
   height: 300px;
   position: relative;
   -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
   transform: translateZ(0);
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
+  /* Firefox 호환성 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* Safari 호환성 */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .camera-container video {
@@ -100,9 +129,20 @@ html, body {
   height: 100%;
   display: block;
   -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
   transform: translateZ(0);
   object-fit: cover;
+  -webkit-object-fit: cover;
+  -moz-object-fit: cover;
   border-radius: 0;
+  /* 브라우저 호환성 */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /* Firefox 비디오 렌더링 최적화 */
+  -moz-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 /* 버튼 스타일 */
@@ -739,16 +779,26 @@ html, body {
   background: #6f42c1;
 }
 
-/* 모바일 최적화 */
+/* 모바일 최적화 - 브라우저 호환성 강화 */
 @media screen and (max-width: 768px) {
-  html, body {
+  html {
+    font-size: 14px;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  body {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   
   .App-main {
     padding: 0;
     -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    overflow-scrolling: touch;
   }
   
   .camera-section {
@@ -766,14 +816,24 @@ html, body {
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
     transform: translateZ(0);
+    /* Safari 모바일 최적화 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   
   .camera-container video {
     height: 100%;
     width: 100%;
     -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
     transform: translateZ(0);
+    object-fit: cover;
+    -webkit-object-fit: cover;
+    -moz-object-fit: cover;
   }
   
   .capture-btn, .retake-btn, .clear-selection-btn {
@@ -837,6 +897,10 @@ html, body {
 }
 
 @media screen and (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+  
   .camera-container {
     height: 300px;
     width: 100vw;
@@ -844,14 +908,24 @@ html, body {
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
     transform: translateZ(0);
+    /* Safari 모바일 최적화 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   
   .camera-container video {
     height: 100%;
     width: 100%;
     -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
     transform: translateZ(0);
+    object-fit: cover;
+    -webkit-object-fit: cover;
+    -moz-object-fit: cover;
   }
   
   .capture-btn, .retake-btn, .clear-selection-btn {
@@ -896,10 +970,12 @@ html, body {
   }
 }
 
-/* Safari 및 Chrome 특별 처리 */
+/* Safari 및 iOS 특별 처리 */
 @supports (-webkit-touch-callout: none) {
   .App {
     min-height: -webkit-fill-available;
+    min-height: -moz-available;
+    min-height: stretch;
   }
   
   .camera-container {
@@ -909,21 +985,33 @@ html, body {
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+    /* Safari 모바일 최적화 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   
   .camera-container video {
     height: 100%;
     width: 100%;
     -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+    object-fit: cover;
+    -webkit-object-fit: cover;
+    -moz-object-fit: cover;
   }
 }
 
-/* Chrome 특별 처리 */
+/* Chrome 및 WebKit 기반 브라우저 특별 처리 */
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   .App-main {
     -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    overflow-scrolling: touch;
   }
   
   .camera-container {
@@ -933,6 +1021,62 @@ html, body {
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
     transform: translateZ(0);
+    /* Chrome 모바일 최적화 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+/* Firefox 특별 처리 */
+@-moz-document url-prefix() {
+  .camera-container {
+    -moz-transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  
+  .camera-container video {
+    -moz-transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Edge 특별 처리 */
+@supports (-ms-ime-align: auto) {
+  .camera-container {
+    -ms-transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  
+  .camera-container video {
+    -ms-transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* 모바일 Safari 주소창 대응 */
+@media screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+  .App {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  
+  .camera-container {
+    height: calc(100vh - 200px);
+    min-height: 250px;
+  }
+}
+
+/* 안드로이드 Chrome 특별 처리 */
+@media screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+  .camera-container {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
