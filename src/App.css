@@ -67,13 +67,13 @@ html, body {
   margin-bottom: 15px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-height: 200px;
+  max-height: 100px;
 }
 
 .camera-container video {
   width: 100%;
   height: auto;
-  max-height: 200px;
+  max-height: 100px;
   display: block;
 }
 
@@ -127,6 +127,7 @@ html, body {
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
+  touch-action: pan-y pinch-zoom;
 }
 
 .selection-canvas {
@@ -134,6 +135,7 @@ html, body {
   height: auto;
   display: block;
   cursor: crosshair;
+  touch-action: pan-y pinch-zoom;
 }
 
 .selection-info {
@@ -473,11 +475,11 @@ html, body {
   }
   
   .camera-container {
-    max-height: 150px;
+    max-height: 75px;
   }
   
   .camera-container video {
-    max-height: 150px;
+    max-height: 75px;
   }
   
   .capture-btn, .retake-btn, .clear-selection-btn {
@@ -504,11 +506,11 @@ html, body {
 
 @media screen and (max-width: 480px) {
   .camera-container {
-    max-height: 120px;
+    max-height: 60px;
   }
   
   .camera-container video {
-    max-height: 120px;
+    max-height: 60px;
   }
   
   .capture-btn, .retake-btn, .clear-selection-btn {

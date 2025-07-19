@@ -99,6 +99,14 @@ function App() {
   const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
     if (!canvasRef.current) return;
     
+    // 두 손가락 터치인 경우 선택 모드를 비활성화하고 스크롤 허용
+    if (e.touches.length >= 2) {
+      setIsDrawing(false);
+      setDrawingStart(null);
+      setSelectionArea(null);
+      return;
+    }
+    
     const rect = canvasRef.current.getBoundingClientRect();
     const touch = e.touches[0];
     const x = touch.clientX - rect.left;
@@ -110,6 +118,11 @@ function App() {
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    // 두 손가락 터치인 경우 스크롤 허용
+    if (e.touches.length >= 2) {
+      return;
+    }
+    
     if (!isDrawing || !drawingStart || !canvasRef.current) return;
     
     e.preventDefault();
@@ -129,7 +142,14 @@ function App() {
     });
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    // 두 손가락 터치가 끝난 경우에도 선택 모드 비활성화
+    if (e.touches.length >= 2) {
+      setIsDrawing(false);
+      setDrawingStart(null);
+      return;
+    }
+    
     setIsDrawing(false);
     setDrawingStart(null);
   };
