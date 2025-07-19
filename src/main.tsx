@@ -1,11 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
+import './index.css'
 
-console.log('main.tsx 로드됨');
+console.log("main.tsx 로드됨");
 
-// 서비스 워커 등록 (PWA 지원)
+// Service Worker 등록
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/partnumbermanager/sw.js')
@@ -19,14 +19,14 @@ if ('serviceWorker' in navigator) {
 }
 
 const rootElement = document.getElementById('root');
-console.log('root 요소:', rootElement);
+console.log("root 요소:", rootElement);
 
 if (rootElement) {
-  createRoot(rootElement).render(
-    <StrictMode>
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
       <App />
-    </StrictMode>,
-  );
+    </React.StrictMode>,
+  )
 } else {
-  console.error('root 요소를 찾을 수 없습니다!');
-}
+  console.error("root 요소를 찾을 수 없습니다!");
+} 

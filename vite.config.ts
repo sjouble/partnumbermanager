@@ -1,18 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/partnumbermanager/',
   plugins: [react()],
-  server: {
-    host: true,
-    port: 5173,
-    strictPort: true,
-  },
+  base: '/partnumbermanager/',
   build: {
-    outDir: 'part-number-manager/dist',
+    outDir: 'dist',
     assetsDir: 'assets',
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -22,8 +18,8 @@ export default defineConfig({
       }
     }
   },
-  preview: {
-    port: 4173,
-    host: true
+  server: {
+    port: 3000,
+    open: true
   }
-})
+}) 

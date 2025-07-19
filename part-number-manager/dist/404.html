@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>품번 스캐너</title>
+    <script>
+        // GitHub Pages에서 SPA 라우팅을 위한 리다이렉트
+        const path = window.location.pathname;
+        const search = window.location.search;
+        const hash = window.location.hash;
+        
+        // 현재 경로가 루트가 아닌 경우 루트로 리다이렉트
+        if (path !== '/' && path !== '/partnumbermanager/' && path !== '/partnumbermanager/index.html') {
+            window.location.href = '/partnumbermanager/' + search + hash;
+        } else {
+            // 루트 경로인 경우 index.html로 리다이렉트
+            window.location.href = '/partnumbermanager/index.html' + search + hash;
+        }
+    </script>
+</head>
+<body>
+    <p>리다이렉트 중...</p>
+</body>
+</html> 
