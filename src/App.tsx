@@ -31,6 +31,9 @@ function App() {
   const [currentExpiryDate, setCurrentExpiryDate] = useState<string>('');
   const [showUnitEditor, setShowUnitEditor] = useState(false);
   const [customUnits, setCustomUnits] = useState<string[]>(['카톤', '중포', '개']);
+  const [newUnit, setNewUnit] = useState<string>('');
+  const [editingUnit, setEditingUnit] = useState<string>('');
+  const [editingIndex, setEditingIndex] = useState<number>(-1);
   const [cameraError, setCameraError] = useState<string>('');
   const [progress, setProgress] = useState<number>(0);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -287,7 +290,48 @@ function App() {
     if (unit.trim() && !customUnits.includes(unit.trim())) {
       setCustomUnits(prev => [...prev, unit.trim()]);
     }
+    setNewUnit('');
     setShowUnitEditor(false);
+  };
+
+  const editUnit = (index: number) => {
+    setEditingIndex(index);
+    setEditingUnit(customUnits[index]);
+  };
+
+  const updateUnit = () => {
+    if (editingUnit.trim() && editingIndex >= 0) {
+      const updatedUnits = [...customUnits];
+      updatedUnits[editingIndex] = editingUnit.trim();
+      setCustomUnits(updatedUnits);
+    }
+    setEditingIndex(-1);
+    setEditingUnit('');
+  };
+
+  const deleteUnit = (index: number) => {
+    if (index >= 0 && customUnits.length > 1) {
+      const updatedUnits = customUnits.filter((_, i) => i !== index);
+      setCustomUnits(updatedUnits);
+      // 현재 선택된 단위가 삭제된 경우 첫 번째 단위로 변경
+      if (currentUnit === customUnits[index]) {
+        setCurrentUnit(updatedUnits[0]);
+      }
+    }
+  };
+
+  const openUnitEditor = () => {
+    setShowUnitEditor(true);
+    setNewUnit('');
+    setEditingIndex(-1);
+    setEditingUnit('');
+  };
+
+  const closeUnitEditor = () => {
+    setShowUnitEditor(false);
+    setNewUnit('');
+    setEditingIndex(-1);
+    setEditingUnit('');
   };
 
   const saveToFile = () => {
@@ -463,35 +507,11 @@ function App() {
                 </select>
                 <button 
                   className="unit-edit-btn"
-                  onClick={() => setShowUnitEditor(!showUnitEditor)}
+                  onClick={openUnitEditor}
                 >
-                  단위 추가
+                  ✏️ 단위 편집
                 </button>
               </div>
-              
-              {showUnitEditor && (
-                <div className="unit-editor">
-                  <input
-                    type="text"
-                    placeholder="새 단위 입력"
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter') {
-                        addCustomUnit((e.target as HTMLInputElement).value);
-                        (e.target as HTMLInputElement).value = '';
-                      }
-                    }}
-                  />
-                  <button onClick={() => {
-                    const input = document.querySelector('.unit-editor input') as HTMLInputElement;
-                    if (input) {
-                      addCustomUnit(input.value);
-                      input.value = '';
-                    }
-                  }}>
-                    추가
-                  </button>
-                </div>
-              )}
               
               <div className="form-group">
                 <label>유통기한 (선택):</label>
@@ -544,6 +564,107 @@ function App() {
               </button>
             </div>
           </section>
+        )}
+
+        {/* 단위 편집 팝업 */}
+        {showUnitEditor && (
+          <div className="unit-editor-popup">
+            <div className="unit-editor-modal">
+              <div className="unit-editor-header">
+                <h3>단위 편집</h3>
+                <button className="close-btn" onClick={closeUnitEditor}>
+                  ✕
+                </button>
+              </div>
+              
+              <div className="unit-editor-content">
+                {/* 새 단위 추가 */}
+                <div className="add-unit-section">
+                  <h4>새 단위 추가</h4>
+                  <div className="add-unit-input">
+                    <input
+                      type="text"
+                      value={newUnit}
+                      onChange={(e) => setNewUnit(e.target.value)}
+                      placeholder="새 단위 입력"
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                          addCustomUnit(newUnit);
+                        }
+                      }}
+                    />
+                    <button 
+                      className="add-unit-btn"
+                      onClick={() => addCustomUnit(newUnit)}
+                      disabled={!newUnit.trim()}
+                    >
+                      추가
+                    </button>
+                  </div>
+                </div>
+
+                {/* 기존 단위 편집 */}
+                <div className="edit-units-section">
+                  <h4>기존 단위 편집</h4>
+                  <div className="units-list">
+                    {customUnits.map((unit, index) => (
+                      <div key={index} className="unit-item">
+                        {editingIndex === index ? (
+                          <div className="unit-edit-mode">
+                            <input
+                              type="text"
+                              value={editingUnit}
+                              onChange={(e) => setEditingUnit(e.target.value)}
+                              onKeyPress={(e) => {
+                                if (e.key === 'Enter') {
+                                  updateUnit();
+                                }
+                              }}
+                            />
+                            <button 
+                              className="save-unit-btn"
+                              onClick={updateUnit}
+                              disabled={!editingUnit.trim()}
+                            >
+                              저장
+                            </button>
+                            <button 
+                              className="cancel-unit-btn"
+                              onClick={() => {
+                                setEditingIndex(-1);
+                                setEditingUnit('');
+                              }}
+                            >
+                              취소
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="unit-display-mode">
+                            <span className="unit-text">{unit}</span>
+                            <div className="unit-actions">
+                              <button 
+                                className="edit-unit-btn"
+                                onClick={() => editUnit(index)}
+                              >
+                                ✏️
+                              </button>
+                              <button 
+                                className="delete-unit-btn"
+                                onClick={() => deleteUnit(index)}
+                                disabled={customUnits.length <= 1}
+                              >
+                                🗑️
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </main>
     </div>
