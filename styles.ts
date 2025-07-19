@@ -1,0 +1,288 @@
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#667eea',
+  },
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  header: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    padding: 20,
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 5,
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.9)',
+  },
+  cameraSection: {
+    backgroundColor: 'white',
+    margin: 15,
+    borderRadius: 10,
+    padding: 15,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  cameraContainer: {
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginBottom: 15,
+  },
+  camera: {
+    width: '100%',
+    height: 300,
+  },
+  cameraControls: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 15,
+  },
+  cameraButton: {
+    backgroundColor: '#ff6b6b',
+    padding: 15,
+    borderRadius: 10,
+    minWidth: 100,
+    alignItems: 'center',
+  },
+  cameraButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    padding: 20,
+  },
+  imageText: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 15,
+  },
+  imageControls: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+  resultSection: {
+    backgroundColor: 'white',
+    margin: 15,
+    borderRadius: 10,
+    padding: 15,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 15,
+    minHeight: 100,
+    textAlignVertical: 'top',
+  },
+  listSection: {
+    backgroundColor: 'white',
+    margin: 15,
+    borderRadius: 10,
+    padding: 15,
+  },
+  partNumberItem: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 15,
+    marginBottom: 10,
+  },
+  partNumberText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  partNumberDetails: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  quantityInput: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 8,
+    width: 60,
+    textAlign: 'center',
+    marginRight: 10,
+  },
+  unitText: {
+    fontSize: 14,
+    color: '#666',
+    marginRight: 10,
+  },
+  dateInput: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 8,
+    flex: 1,
+  },
+  removeButton: {
+    backgroundColor: '#dc3545',
+    padding: 8,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  removeButtonText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  unitSection: {
+    backgroundColor: 'white',
+    margin: 15,
+    borderRadius: 10,
+    padding: 15,
+  },
+  addUnitContainer: {
+    flexDirection: 'row',
+    marginBottom: 15,
+  },
+  unitInput: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 10,
+    flex: 1,
+    marginRight: 10,
+  },
+  unitItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  unitActions: {
+    flexDirection: 'row',
+  },
+  editButton: {
+    backgroundColor: '#007bff',
+    padding: 5,
+    borderRadius: 3,
+    marginRight: 5,
+  },
+  editButtonText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  deleteButton: {
+    backgroundColor: '#dc3545',
+    padding: 5,
+    borderRadius: 3,
+  },
+  deleteButtonText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  exportSection: {
+    margin: 15,
+    marginBottom: 30,
+  },
+  exportButton: {
+    backgroundColor: '#28a745',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  exportButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  button: {
+    backgroundColor: '#007bff',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  cancelButton: {
+    backgroundColor: '#6c757d',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  cancelButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  modalOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modal: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    width: '80%',
+    maxWidth: 300,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  modalInput: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  loadingText: {
+    fontSize: 16,
+    color: 'white',
+  },
+  errorText: {
+    fontSize: 16,
+    color: 'white',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+}); 

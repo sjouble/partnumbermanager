@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "PartNumberManager-RN",
-    "slug": "PartNumberManager-RN",
+    "name": "PartNumberManager",
+    "slug": "PartNumberManager",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
